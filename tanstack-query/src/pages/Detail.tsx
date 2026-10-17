@@ -14,20 +14,18 @@ export default function Detail() {
   // Global state
   const { setCart } = useCart();
   const { id } = useParams();
-
-  // Local state
-  const [sku, setSku] = useState("");
-
-  // Methods
-  const {
-    data: product,
-    isLoading,
-    error,
-  } = useQuery({
+  const { data, isLoading, error } = useQuery({
     queryKey: ["products", id],
     queryFn: fetchProduct,
   });
 
+  // Local state
+  const [sku, setSku] = useState("");
+
+  // Derived state
+  const product = data;
+
+  // Methods
   async function fetchProduct(): Promise<Product> {
     const baseURL = import.meta.env.VITE_APP_API_BASE_URL;
     const endpoint = baseURL + `products/${id}`;
@@ -52,9 +50,9 @@ export default function Detail() {
 
       <select id="size" value={sku} onChange={(e) => setSku(e.target.value)}>
         <option value="">What size?</option>
-        {product.skus.map((s) => (
-          <option key={s.sku} value={s.sku}>
-            {s.size}
+        {product.skus.map((item) => (
+          <option key={item.sku} value={item.sku}>
+            {item.size}
           </option>
         ))}
       </select>
@@ -68,8 +66,10 @@ export default function Detail() {
             setCart((cart) => {
               const itemInCart = cart.find((i) => i.sku === sku);
               return itemInCart
-                ? cart.map((i) =>
-                    i.sku === sku ? { ...i, quantity: i.quantity + 1 } : i,
+                ? cart.map((item) =>
+                    item.sku === sku
+                      ? { ...item, quantity: item.quantity + 1 }
+                      : item,
                   )
                 : [...cart, { id: parseInt(id), sku, quantity: 1 }];
             });
