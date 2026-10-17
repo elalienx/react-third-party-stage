@@ -19,38 +19,27 @@ import Products from "./pages/Products.tsx";
 import "./styles/App.css";
 
 export default function App() {
-  const errPro = <h1>Sorry, failed to load products.</h1>;
-  const errCat = <h1>Sorry, failed to load cart.</h1>;
+  // Derived state
+  const elementDetail = (
+    <Suspense fallback={<Spinner />}>
+      <Detail />
+    </Suspense>
+  );
+  const elementProduct = (
+    <Suspense fallback={<Spinner />}>
+      <Products />
+    </Suspense>
+  );
+  const errorCart = <h1>Sorry, failed to load cart.</h1>;
+  const errorProduct = <h1>Sorry, failed to load products.</h1>;
 
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path="/" element={<Layout />}>
-        <Route
-          path="/"
-          element={
-            <Suspense fallback={<Spinner />}>
-              <Products />
-            </Suspense>
-          }
-          errorElement={errPro}
-        />
-        <Route
-          path="/:category"
-          element={
-            <Suspense fallback={<Spinner />}>
-              <Products />
-            </Suspense>
-          }
-        />
-        <Route
-          path="/:category/:id"
-          element={
-            <Suspense fallback={<Spinner />}>
-              <Detail />
-            </Suspense>
-          }
-        />
-        <Route path="/cart" element={<Cart />} errorElement={errCat} />
+        <Route path="/" element={elementProduct} errorElement={errorProduct} />
+        <Route path="/:category" element={elementProduct} />
+        <Route path="/:category/:id" element={elementDetail} />
+        <Route path="/cart" element={<Cart />} errorElement={errorCart} />
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/account" element={<Account />} />
         <Route path="/faker" element={<Faker />} />
