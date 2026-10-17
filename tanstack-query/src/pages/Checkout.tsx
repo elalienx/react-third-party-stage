@@ -24,7 +24,10 @@ type Errors = {
 };
 
 export default function Checkout() {
+  // Global state
   const { setCart } = useCart();
+
+  // Local state
   const [address, setAddress] = useState(emptyAddress);
   const [status, setStatus] = useState<Status>("Idle");
   const [saveError, setSaveError] = useState<Error | null>(null);
@@ -34,9 +37,8 @@ export default function Checkout() {
   const errors = getErrors(address);
   const isValid = Object.keys(errors).length === 0;
 
-  function handleChange(
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
-  ) {
+  // Methods
+  function onChange(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
     e.persist(); // persist the event
     setAddress((curAddress) => {
       return {
@@ -46,16 +48,14 @@ export default function Checkout() {
     });
   }
 
-  function handleBlur(
-    event: React.FocusEvent<HTMLInputElement | HTMLSelectElement>,
-  ) {
+  function onBlur(event: React.FocusEvent<HTMLInputElement | HTMLSelectElement>) {
     event.persist();
     setTouched((cur) => {
       return { ...cur, [event.target.id]: true };
     });
   }
 
-  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setStatus("Submitting");
     if (isValid) {
@@ -96,31 +96,18 @@ export default function Checkout() {
           </ul>
         </div>
       )}
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={onSubmit}>
         <div>
           <label htmlFor="city">City</label>
           <br />
-          <input
-            id="city"
-            type="text"
-            value={address.city}
-            onBlur={handleBlur}
-            onChange={handleChange}
-          />
-          <p role="alert">
-            {(touched.city || status === "Submitted") && errors.city}
-          </p>
+          <input id="city" type="text" value={address.city} onBlur={onBlur} onChange={onChange} />
+          <p role="alert">{(touched.city || status === "Submitted") && errors.city}</p>
         </div>
 
         <div>
           <label htmlFor="country">Country</label>
           <br />
-          <select
-            id="country"
-            value={address.country}
-            onBlur={handleBlur}
-            onChange={handleChange}
-          >
+          <select id="country" value={address.country} onBlur={onBlur} onChange={onChange}>
             <option value="">Select Country</option>
             <option value="China">China</option>
             <option value="India">India</option>
@@ -128,9 +115,7 @@ export default function Checkout() {
             <option value="USA">USA</option>
           </select>
 
-          <p role="alert">
-            {(touched.country || status === "Submitted") && errors.country}
-          </p>
+          <p role="alert">{(touched.country || status === "Submitted") && errors.country}</p>
         </div>
 
         <div>
