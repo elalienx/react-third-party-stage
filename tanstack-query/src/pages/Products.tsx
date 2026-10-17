@@ -1,6 +1,5 @@
 // Node modules
 import { useState } from "react";
-import { useParams } from "react-router-dom";
 
 // Project files
 import ProductItem from "../components/ProductItem";
@@ -10,7 +9,6 @@ import PageNotFound from "./PageNotFound";
 
 export default function Products() {
   // Global state
-  const { category } = useParams();
   const { data: products } = useGetProducts();
   const deleteProduct = useDeleteProduct();
 
@@ -50,7 +48,6 @@ export default function Products() {
           <ProductItem
             key={item.id}
             product={item}
-            category={category}
             onDelete={deleteProduct.mutate}
           />
         ))}

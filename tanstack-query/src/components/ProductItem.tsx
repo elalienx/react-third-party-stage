@@ -6,12 +6,11 @@ import { Product } from "../types/types";
 
 interface Props {
   product: Product;
-  category: string | undefined;
   onDelete: (id: number) => void;
 }
 
-export default function ProductItem({ product, category, onDelete }: Props) {
-  const { id, image, name, price } = product;
+export default function ProductItem({ product, onDelete }: Props) {
+  const { id, category, image, name, price } = product;
 
   // Safeguards
   if (!id) return <p>Can't render a product item without id</p>;
