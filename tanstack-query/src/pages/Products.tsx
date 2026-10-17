@@ -4,26 +4,25 @@ import { useParams } from "react-router-dom";
 
 // Project files
 import ProductItem from "../components/ProductItem";
-import Spinner from "../components/Spinner";
 import useGetProducts from "../queries/useGetProducts";
 import PageNotFound from "./PageNotFound";
 
 export default function Products() {
   // Global state
   const { category } = useParams();
-  const { data: products, isLoading } = useGetProducts();
+  const { data: products } = useGetProducts();
 
   // Local state
   const [size, setSize] = useState("");
 
-  // Safeguards
-  if (isLoading) return <Spinner />;
-  if (!products || products.length === 0) return <PageNotFound />;
-
+  // Derived state
   const productsBySKU = products.filter((item) =>
     item.skus.find((sku) => sku.size === parseInt(size)),
   );
   const filteredProducts = size ? productsBySKU : products;
+
+  // Safeguards
+  if (!products || products.length === 0) return <PageNotFound />;
 
   return (
     <>
