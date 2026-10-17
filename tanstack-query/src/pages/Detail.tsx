@@ -31,14 +31,14 @@ export default function Detail() {
     const endpoint = baseURL + `products/${id}`;
     const data = await fetch(endpoint);
 
-    // Safeguard
+    // Safeguards
     if (!data.ok) throw new Error(`Product not found: ${data.status}`);
 
     return data.json();
   }
 
   function onAddToCart() {
-    // Safeguard
+    // Safeguards
     if (!sku || !id) return alert("Select size.");
 
     setCart(getUpdatedCart(id, sku));

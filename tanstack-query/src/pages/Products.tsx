@@ -1,40 +1,40 @@
 // Node modules
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useParams, Link } from "react-router-dom";
 
 // Project files
 import Spinner from "../components/Spinner";
 import { Product } from "../types/types";
 import PageNotFound from "./PageNotFound";
+import { useQuery } from "@tanstack/react-query";
 
 export default function Products() {
-  const [size, setSize] = useState("");
+  // Global state
   const { category } = useParams();
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["product"],
+    queryFn: fetchProducts,
+  });
 
-  const [products, setProducts] = useState<Product[] | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<Error | null>(null);
+  // Local state
+  const [size, setSize] = useState("");
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const data = await fetch(
-          import.meta.env.VITE_APP_API_BASE_URL + "products",
-        );
-        if (!data.ok) {
-          throw new Error(`Product not found: ${data.status}`);
-        }
-        const products = await data.json();
-        setProducts(products);
-      } catch (error) {
-        setError(error as Error);
-      } finally {
-        setLoading(false);
-      }
-    }
-    fetchData();
-  }, []);
+  // Derived state
+  const products = data;
 
+  // Methods
+  async function fetchProducts(): Promise<Product[]> {
+    const baseURL = import.meta.env.VITE_APP_API_BASE_URL;
+    const endpoint = baseURL + "products";
+    const data = await fetch(endpoint);
+
+    // Safeguard
+    if (!data.ok) throw new Error(`Product not found: ${data.status}`);
+
+    return data.json();
+  }
+
+  // Component
   function renderProduct(p: Product) {
     return (
       <div key={p.id} className="product">
@@ -47,12 +47,15 @@ export default function Products() {
     );
   }
 
+  // Safeguards
   if (error) throw error;
-  if (loading) return <Spinner />;
+  if (isLoading) return <Spinner />;
   if (!products || products.length === 0) return <PageNotFound />;
 
   const filteredProducts = size
-    ? products.filter((p) => p.skus.find((s) => s.size === parseInt(size)))
+    ? products.filter((product) =>
+        product.skus.find((sku) => sku.size === parseInt(size)),
+      )
     : products;
 
   return (
