@@ -27,7 +27,7 @@ export default function Products() {
     mutationFn: async (id: number) => {
       const baseURL = import.meta.env.VITE_APP_API_BASE_URL;
       const endpoint = baseURL + `products/${id}`;
-      const options = { method: "DELETE`" };
+      const options = { method: "DELETE" };
       const response = await fetch(endpoint, options);
 
       // Safeguards
