@@ -45,11 +45,7 @@ export default function Products() {
       {/* Content */}
       <section id="products">
         {filteredProducts.map((item) => (
-          <ProductItem
-            key={item.id}
-            product={item}
-            onDelete={deleteProduct.mutate}
-          />
+          <ProductItem key={item.id} product={item} onDelete={deleteProduct.mutate} />
         ))}
       </section>
     </>
