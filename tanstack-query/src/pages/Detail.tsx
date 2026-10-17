@@ -13,7 +13,7 @@ export default function Detail() {
   // Global state
   const { cart, setCart } = useCart();
   const { id } = useParams();
-  const { data: product, isLoading, error } = useGetProductById(id);
+  const { data: product, isLoading } = useGetProductById(id);
 
   // Local state
   const [sku, setSku] = useState("");
@@ -42,7 +42,6 @@ export default function Detail() {
   // Safeguards
   if (isLoading) return <Spinner />;
   if (!product || !id) return <PageNotFound />;
-  if (error) throw error;
 
   return (
     <div id="detail">

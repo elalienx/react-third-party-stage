@@ -13,7 +13,9 @@ import Routes from "./Routes";
 import "./styles/main.css";
 
 // Properties
-const queryClient = new QueryClient();
+const queries = { throwOnError: true };
+const defaultOptions = { queries };
+const queryClient = new QueryClient({ defaultOptions });
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>

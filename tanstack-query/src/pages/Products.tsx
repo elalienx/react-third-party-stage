@@ -11,13 +11,12 @@ import PageNotFound from "./PageNotFound";
 export default function Products() {
   // Global state
   const { category } = useParams();
-  const { data: products, isLoading, error } = useGetProducts();
+  const { data: products, isLoading } = useGetProducts();
 
   // Local state
   const [size, setSize] = useState("");
 
   // Safeguards
-  if (error) throw error;
   if (isLoading) return <Spinner />;
   if (!products || products.length === 0) return <PageNotFound />;
 

@@ -11,7 +11,7 @@ export default function useGetProducts() {
 
 async function getProducts(): Promise<Product[]> {
   const baseURL = import.meta.env.VITE_APP_API_BASE_URL;
-  const endpoint = baseURL + "products";
+  const endpoint = baseURL + "XXXproducts";
   const data = await fetch(endpoint);
 
   // Safeguards
