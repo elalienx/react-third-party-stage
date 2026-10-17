@@ -1,42 +1,24 @@
 // Node modules
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
 // Project files
 import Spinner from "../components/Spinner";
 import { useCart } from "../context/cartContext";
-import type { Product } from "../types/types";
+import { useGetProductById } from "../queries/productQueries";
 import PageNotFound from "./PageNotFound";
 
 export default function Detail() {
   // Global state
   const { cart, setCart } = useCart();
   const { id } = useParams();
-  const { data, isLoading, error } = useQuery({
-    queryKey: ["products", id],
-    queryFn: fetchProduct,
-  });
+  const { data: product, isLoading, error } = useGetProductById(id);
 
   // Local state
   const [sku, setSku] = useState("");
 
-  // Derived state
-  const product = data;
-
   // Methods
-  async function fetchProduct(): Promise<Product> {
-    const baseURL = import.meta.env.VITE_APP_API_BASE_URL;
-    const endpoint = baseURL + `products/${id}`;
-    const data = await fetch(endpoint);
-
-    // Safeguards
-    if (!data.ok) throw new Error(`Product not found: ${data.status}`);
-
-    return data.json();
-  }
-
   function onAddToCart() {
     // Safeguards
     if (!sku || !id) return alert("Select size.");
@@ -78,11 +60,7 @@ export default function Detail() {
       </select>
 
       <p>
-        <button
-          disabled={!sku}
-          className="btn btn-primary"
-          onClick={onAddToCart}
-        >
+        <button disabled={!sku} className="btn btn-primary" onClick={onAddToCart}>
           Add to cart
         </button>
       </p>
