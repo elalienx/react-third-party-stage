@@ -1,7 +1,7 @@
 // Node modules
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 // Project files
 import ProductItem from "../components/ProductItem";
@@ -11,6 +11,7 @@ import PageNotFound from "./PageNotFound";
 export default function Products() {
   // Global state
   const { category } = useParams();
+  const queryClient = useQueryClient();
   const { data: products } = useGetProducts();
 
   // Local state
@@ -32,6 +33,9 @@ export default function Products() {
 
       // Safeguards
       if (!response.ok) throw response;
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ["products"] });
     },
   });
 
