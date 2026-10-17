@@ -16,9 +16,8 @@ export default function Products() {
   const [size, setSize] = useState("");
 
   // Derived state
-  const productsBySKU = products.filter((item) =>
-    item.skus.find((sku) => sku.size === parseInt(size)),
-  );
+  const castSize = Number(size);
+  const productsBySKU = products?.filter((item) => item.skus.some((sku) => sku.size === castSize));
   const filteredProducts = size ? productsBySKU : products;
 
   // Safeguards
