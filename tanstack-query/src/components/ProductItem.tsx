@@ -13,6 +13,12 @@ interface Props {
 export default function ProductItem({ product, category, deleteProduct }: Props) {
   const { id, image, name, price } = product;
 
+  // Methods
+  function onDelete() {
+    alert(`deleting ${id}`);
+    deleteProduct.mutate(id);
+  }
+
   return (
     <div className="product">
       <Link to={`/${category}/${id}`}>
@@ -20,7 +26,7 @@ export default function ProductItem({ product, category, deleteProduct }: Props)
         <h3>{name}</h3>
         <p>${price}</p>
       </Link>
-      <button onClick={() => deleteProduct.mutation(id)}>Delete</button>
+      <button onClick={onDelete}>Delete</button>
     </div>
   );
 }
