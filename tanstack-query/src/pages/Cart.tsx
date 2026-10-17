@@ -1,7 +1,7 @@
-import Spinner from "./Spinner";
+import Spinner from "../components/Spinner";
 import { useNavigate } from "react-router-dom";
-import { useCart } from "./context/cartContext";
-import { CartItem, Product } from "./types/types";
+import { useCart } from "../context/cartContext";
+import { CartItem, Product } from "../types/types";
 import { useEffect, useState } from "react";
 
 export default function Cart() {
@@ -61,7 +61,7 @@ export default function Cart() {
                 setCart((cart) =>
                   quantity === 0
                     ? cart.filter((i) => i.sku !== sku)
-                    : cart.map((i) => (i.sku === sku ? { ...i, quantity } : i))
+                    : cart.map((i) => (i.sku === sku ? { ...i, quantity } : i)),
                 );
               }}
               value={quantity}

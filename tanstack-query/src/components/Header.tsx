@@ -1,6 +1,6 @@
 import { Link, NavLink } from "react-router-dom";
-import { useCart } from "./context/cartContext";
-import { useUser } from "./context/userContext";
+import { useCart } from "../context/cartContext";
+import { useUser } from "../context/userContext";
 
 export default function Header() {
   const { cart } = useCart();

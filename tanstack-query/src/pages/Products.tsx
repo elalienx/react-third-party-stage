@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import Spinner from "./Spinner";
+import Spinner from "../components/Spinner";
 import { useParams, Link } from "react-router-dom";
 import PageNotFound from "./PageNotFound";
-import { Product } from "./types/types";
+import { Product } from "../types/types";
 
 export default function Products() {
   const [size, setSize] = useState("");
@@ -16,7 +16,7 @@ export default function Products() {
     async function fetchData() {
       try {
         const data = await fetch(
-          import.meta.env.VITE_APP_API_BASE_URL + "products"
+          import.meta.env.VITE_APP_API_BASE_URL + "products",
         );
         if (!data.ok) {
           throw new Error(`Product not found: ${data.status}`);

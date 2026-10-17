@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import Spinner from "./Spinner";
+import Spinner from "../components/Spinner";
 import PageNotFound from "./PageNotFound";
-import { useCart } from "./context/cartContext";
-import { Product } from "./types/types";
+import { useCart } from "../context/cartContext";
+import { Product } from "../types/types";
 import toast from "react-hot-toast";
 
 export default function Detail() {
@@ -18,7 +18,7 @@ export default function Detail() {
     async function fetchData() {
       try {
         const data = await fetch(
-          import.meta.env.VITE_APP_API_BASE_URL + `products/${id}`
+          import.meta.env.VITE_APP_API_BASE_URL + `products/${id}`,
         );
         if (!data.ok) {
           throw new Error(`Product not found: ${data.status}`);
@@ -63,7 +63,7 @@ export default function Detail() {
               const itemInCart = cart.find((i) => i.sku === sku);
               return itemInCart
                 ? cart.map((i) =>
-                    i.sku === sku ? { ...i, quantity: i.quantity + 1 } : i
+                    i.sku === sku ? { ...i, quantity: i.quantity + 1 } : i,
                   )
                 : [...cart, { id: parseInt(id), sku, quantity: 1 }];
             });

@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { saveShippingAddress } from "./services/shippingService";
-import { useCart } from "./context/cartContext";
-import { ShippingAddress } from "./types/types";
+import { saveShippingAddress } from "../services/shippingService";
+import { useCart } from "../context/cartContext";
+import { ShippingAddress } from "../types/types";
 
 type Status = "Idle" | "Submitted" | "Submitting" | "Completed";
 
@@ -33,7 +33,7 @@ export default function Checkout() {
   const isValid = Object.keys(errors).length === 0;
 
   function handleChange(
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) {
     e.persist(); // persist the event
     setAddress((curAddress) => {
@@ -45,7 +45,7 @@ export default function Checkout() {
   }
 
   function handleBlur(
-    event: React.FocusEvent<HTMLInputElement | HTMLSelectElement>
+    event: React.FocusEvent<HTMLInputElement | HTMLSelectElement>,
   ) {
     event.persist();
     setTouched((cur) => {

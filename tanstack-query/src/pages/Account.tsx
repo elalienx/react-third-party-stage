@@ -1,4 +1,4 @@
-import { useUser } from "./context/userContext";
+import { useUser } from "../context/userContext";
 
 export function Account() {
   const { user } = useUser();
