@@ -1,8 +1,9 @@
 // Node modules
 import { useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 // Project files
+import ProductItem from "../components/ProductItem";
 import Spinner from "../components/Spinner";
 import { Product } from "../types/types";
 import PageNotFound from "./PageNotFound";
@@ -34,19 +35,6 @@ export default function Products() {
     return data.json();
   }
 
-  // Component
-  function renderProduct(p: Product) {
-    return (
-      <div key={p.id} className="product">
-        <Link to={`/${category}/${p.id}`}>
-          <img src={`/images/${p.image}`} alt={p.name} />
-          <h3>{p.name}</h3>
-          <p>${p.price}</p>
-        </Link>
-      </div>
-    );
-  }
-
   // Safeguards
   if (error) throw error;
   if (isLoading) return <Spinner />;
@@ -74,7 +62,11 @@ export default function Products() {
         </select>
         {size && <h2>Found {filteredProducts.length} items</h2>}
       </section>
-      <section id="products">{filteredProducts.map(renderProduct)}</section>
+      <section id="products">
+        {filteredProducts.map((p) => (
+          <ProductItem key={p.id} product={p} category={category} />
+        ))}
+      </section>
     </>
   );
 }
