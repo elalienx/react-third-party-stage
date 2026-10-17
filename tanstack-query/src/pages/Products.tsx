@@ -48,7 +48,7 @@ export default function Products() {
   return (
     <>
       {/* User interface */}
-      <header id="filters">
+      <section id="filters">
         {/* Selectbox */}
         <label htmlFor="size">Filter by Size:</label>
         <select id="size" value={size} onChange={(event) => setSize(event.target.value)}>
@@ -61,7 +61,7 @@ export default function Products() {
         {/* Results */}
         {size && <h2>Found {filteredProducts.length} items</h2>}
         {!size && <h2>Viewing all sizes</h2>}
-      </header>
+      </section>
 
       {/* Content */}
       <section id="products">
