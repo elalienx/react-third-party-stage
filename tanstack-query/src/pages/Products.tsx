@@ -1,8 +1,11 @@
+// Node modules
 import { useEffect, useState } from "react";
-import Spinner from "../components/Spinner";
 import { useParams, Link } from "react-router-dom";
-import PageNotFound from "./PageNotFound";
+
+// Project files
+import Spinner from "../components/Spinner";
 import { Product } from "../types/types";
+import PageNotFound from "./PageNotFound";
 
 export default function Products() {
   const [size, setSize] = useState("");

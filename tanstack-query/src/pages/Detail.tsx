@@ -1,10 +1,13 @@
+// Node modules
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import Spinner from "../components/Spinner";
-import PageNotFound from "./PageNotFound";
-import { useCart } from "../context/cartContext";
-import { Product } from "../types/types";
 import toast from "react-hot-toast";
+
+// Project files
+import Spinner from "../components/Spinner";
+import { useCart } from "../context/cartContext";
+import PageNotFound from "./PageNotFound";
+import { Product } from "../types/types";
 
 export default function Detail() {
   const { setCart } = useCart();

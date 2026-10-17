@@ -1,6 +1,8 @@
+// Node modules
 import { useState } from "react";
-import { saveShippingAddress } from "../services/shippingService";
+// Project files
 import { useCart } from "../context/cartContext";
+import { saveShippingAddress } from "../services/shippingService";
 import { ShippingAddress } from "../types/types";
 
 type Status = "Idle" | "Submitted" | "Submitting" | "Completed";

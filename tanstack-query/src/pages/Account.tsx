@@ -1,3 +1,4 @@
+// Project files
 import { useUser } from "../context/userContext";
 
 export function Account() {

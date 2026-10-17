@@ -1,4 +1,7 @@
+// Node modules
 import { Link, NavLink } from "react-router-dom";
+
+// Project files
 import { useCart } from "../context/cartContext";
 import { useUser } from "../context/userContext";
 
