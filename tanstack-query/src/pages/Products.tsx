@@ -47,21 +47,23 @@ export default function Products() {
 
   return (
     <>
-      <section id="filters">
+      {/* User interface */}
+      <header id="filters">
+        {/* Selectbox */}
         <label htmlFor="size">Filter by Size:</label>
-        <select
-          id="size"
-          value={size}
-          onChange={(event) => setSize(event.target.value)}
-        >
+        <select id="size" value={size} onChange={(event) => setSize(event.target.value)}>
           <option value="">All sizes</option>
           <option value="7">7</option>
           <option value="8">8</option>
           <option value="9">9</option>
         </select>
+
+        {/* Results */}
         {size && <h2>Found {filteredProducts.length} items</h2>}
         {!size && <h2>Viewing all sizes</h2>}
-      </section>
+      </header>
+
+      {/* Content */}
       <section id="products">
         {filteredProducts.map((item) => (
           <ProductItem key={item.id} product={item} category={category} />
