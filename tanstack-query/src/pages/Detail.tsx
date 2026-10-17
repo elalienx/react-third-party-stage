@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 // Project files
 import Spinner from "../components/Spinner";
 import { useCart } from "../context/cartContext";
-import { useGetProductById } from "../queries/productQueries";
+import useGetProductById from "../queries/useGetProductById";
 import PageNotFound from "./PageNotFound";
 
 export default function Detail() {

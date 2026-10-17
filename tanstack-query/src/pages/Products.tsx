@@ -5,35 +5,16 @@ import { useParams } from "react-router-dom";
 // Project files
 import ProductItem from "../components/ProductItem";
 import Spinner from "../components/Spinner";
-import { Product } from "../types/types";
+import useGetProducts from "../queries/useGetProducts";
 import PageNotFound from "./PageNotFound";
-import { useQuery } from "@tanstack/react-query";
 
 export default function Products() {
   // Global state
   const { category } = useParams();
-  const { data, isLoading, error } = useQuery({
-    queryKey: ["product"],
-    queryFn: fetchProducts,
-  });
+  const { data: products, isLoading, error } = useGetProducts();
 
   // Local state
   const [size, setSize] = useState("");
-
-  // Derived state
-  const products = data;
-
-  // Methods
-  async function fetchProducts(): Promise<Product[]> {
-    const baseURL = import.meta.env.VITE_APP_API_BASE_URL;
-    const endpoint = baseURL + "products";
-    const data = await fetch(endpoint);
-
-    // Safeguard
-    if (!data.ok) throw new Error(`Product not found: ${data.status}`);
-
-    return data.json();
-  }
 
   // Safeguards
   if (error) throw error;

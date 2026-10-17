@@ -2,9 +2,9 @@
 import { useQuery } from "@tanstack/react-query";
 import { Product } from "../types/types";
 
-export function useGetProductById(id: string | undefined) {
+export default function useGetProductById(id: string | undefined) {
   const enabled = !!id;
-  const queryKey = ["products", id];
+  const queryKey = ["product", id];
   const queryFn = () => getProductById(id);
 
   return useQuery({ enabled, queryKey, queryFn });
