@@ -14,8 +14,8 @@ export default function ProductItem({ product, category, deleteProduct }: Props)
   const { id, image, name, price } = product;
 
   // Methods
-  function onDelete() {
-    alert(`deleting ${id}`);
+  function onDelete(id: number) {
+    console.log("deleting product id", id);
     deleteProduct.mutate(id);
   }
 
@@ -26,7 +26,7 @@ export default function ProductItem({ product, category, deleteProduct }: Props)
         <h3>{name}</h3>
         <p>${price}</p>
       </Link>
-      <button onClick={onDelete}>Delete</button>
+      <button onClick={() => onDelete(id)}>Delete</button>
     </div>
   );
 }
