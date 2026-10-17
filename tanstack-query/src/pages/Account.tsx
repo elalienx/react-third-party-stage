@@ -1,7 +1,7 @@
 // Project files
 import { useUser } from "../context/userContext";
 
-export function Account() {
+export default function Account() {
   const { user } = useUser();
 
   return (

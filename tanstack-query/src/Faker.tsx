@@ -1,5 +1,8 @@
+// Node modules
 import { faker } from "@faker-js/faker";
-import { Product } from "./types/types";
+
+// Project files
+import { Product } from "../types/types";
 
 export default function Faker() {
   function generateFakeData() {

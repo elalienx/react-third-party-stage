@@ -1,8 +1,11 @@
+// Node modules
 import { ErrorBoundary } from "react-error-boundary";
-import Header from "./Header";
 import { Outlet } from "react-router-dom";
 
-export function Layout() {
+// Project files
+import Header from "./components/Header";
+
+export default function Layout() {
   return (
     <div className="content">
       <Header />
