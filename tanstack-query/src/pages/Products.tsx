@@ -51,7 +51,7 @@ export default function Products() {
             key={item.id}
             product={item}
             category={category}
-            deleteProduct={deleteProduct}
+            onDelete={deleteProduct.mutate}
           />
         ))}
       </section>
