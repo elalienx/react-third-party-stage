@@ -1,18 +1,18 @@
 // Node modules
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 // Project files
 import ProductItem from "../components/ProductItem";
+import useDeleteProduct from "../queries/useDeleteProduct";
 import useGetProducts from "../queries/useGetProducts";
 import PageNotFound from "./PageNotFound";
 
 export default function Products() {
   // Global state
   const { category } = useParams();
-  const queryClient = useQueryClient();
   const { data: products } = useGetProducts();
+  const deleteProduct = useDeleteProduct();
 
   // Local state
   const [size, setSize] = useState("");
@@ -22,22 +22,6 @@ export default function Products() {
     item.skus.find((sku) => sku.size === parseInt(size)),
   );
   const filteredProducts = size ? productsBySKU : products;
-
-  // Methods
-  const deleteProduct = useMutation({
-    mutationFn: async (id: number) => {
-      const baseURL = import.meta.env.VITE_APP_API_BASE_URL;
-      const endpoint = baseURL + `products/${id}`;
-      const options = { method: "DELETE" };
-      const response = await fetch(endpoint, options);
-
-      // Safeguards
-      if (!response.ok) throw response;
-    },
-    onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ["products"] });
-    },
-  });
 
   // Safeguards
   if (!products || products.length === 0) return <PageNotFound />;
