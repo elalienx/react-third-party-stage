@@ -40,20 +40,19 @@ export default function Products() {
   if (isLoading) return <Spinner />;
   if (!products || products.length === 0) return <PageNotFound />;
 
-  const filteredProducts = size
-    ? products.filter((product) =>
-        product.skus.find((sku) => sku.size === parseInt(size)),
-      )
-    : products;
+  const productsBySKU = products.filter((item) =>
+    item.skus.find((sku) => sku.size === parseInt(size)),
+  );
+  const filteredProducts = size ? productsBySKU : products;
 
   return (
     <>
       <section id="filters">
-        <label htmlFor="size">Filter by Size:</label>{" "}
+        <label htmlFor="size">Filter by Size:</label>
         <select
           id="size"
           value={size}
-          onChange={(e) => setSize(e.target.value)}
+          onChange={(event) => setSize(event.target.value)}
         >
           <option value="">All sizes</option>
           <option value="7">7</option>
@@ -61,10 +60,11 @@ export default function Products() {
           <option value="9">9</option>
         </select>
         {size && <h2>Found {filteredProducts.length} items</h2>}
+        {!size && <h2>Viewing all sizes</h2>}
       </section>
       <section id="products">
-        {filteredProducts.map((p) => (
-          <ProductItem key={p.id} product={p} category={category} />
+        {filteredProducts.map((item) => (
+          <ProductItem key={item.id} product={item} category={category} />
         ))}
       </section>
     </>
