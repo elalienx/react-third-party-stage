@@ -41,11 +41,11 @@ export default function Detail() {
     // Safeguard
     if (!sku || !id) return alert("Select size.");
 
-    setCart(getUpdatedCart(id));
+    setCart(getUpdatedCart(id, sku));
     toast("Added to cart", { icon: "🛒" });
   }
 
-  function getUpdatedCart(id: string) {
+  function getUpdatedCart(id: string, sku: string) {
     const itemInCart = cart.find((i) => i.sku === sku);
     const appendedCart = [...cart, { id: parseInt(id), sku, quantity: 1 }];
     const incrementedCart = cart.map((item) => {
