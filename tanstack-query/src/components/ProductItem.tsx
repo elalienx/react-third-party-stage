@@ -7,16 +7,20 @@ import { Product } from "../types/types";
 interface Props {
   product: Product;
   category?: string;
+  deleteProduct: any;
 }
 
-export default function ProductItem({ product, category }: Props) {
+export default function ProductItem({ product, category, deleteProduct }: Props) {
+  const { id, image, name, price } = product;
+
   return (
     <div className="product">
-      <Link to={`/${category}/${product.id}`}>
-        <img src={`/images/${product.image}`} alt={product.name} />
-        <h3>{product.name}</h3>
-        <p>${product.price}</p>
+      <Link to={`/${category}/${id}`}>
+        <img src={`/images/${image}`} alt={name} />
+        <h3>{name}</h3>
+        <p>${price}</p>
       </Link>
+      <button onClick={() => deleteProduct.mutation(id)}>Delete</button>
     </div>
   );
 }

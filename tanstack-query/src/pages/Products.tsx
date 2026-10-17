@@ -1,6 +1,7 @@
 // Node modules
 import { useState } from "react";
 import { useParams } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
 
 // Project files
 import ProductItem from "../components/ProductItem";
@@ -20,6 +21,19 @@ export default function Products() {
     item.skus.find((sku) => sku.size === parseInt(size)),
   );
   const filteredProducts = size ? productsBySKU : products;
+
+  // Methods
+  const deleteProduct = useMutation({
+    mutationFn: async (id: number) => {
+      const baseURL = import.meta.env.VITE_APP_API_BASE_URL;
+      const endpoint = baseURL + `products/${id}`;
+      const options = { method: "DELETE`" };
+      const response = await fetch(endpoint, options);
+
+      // Safeguards
+      if (!response.ok) throw response;
+    },
+  });
 
   // Safeguards
   if (!products || products.length === 0) return <PageNotFound />;
@@ -45,7 +59,12 @@ export default function Products() {
       {/* Content */}
       <section id="products">
         {filteredProducts.map((item) => (
-          <ProductItem key={item.id} product={item} category={category} />
+          <ProductItem
+            key={item.id}
+            product={item}
+            category={category}
+            deleteProduct={deleteProduct}
+          />
         ))}
       </section>
     </>
