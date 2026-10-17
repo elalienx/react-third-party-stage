@@ -6,7 +6,7 @@ import { Product } from "../types/types";
 
 interface Props {
   product: Product;
-  category?: string;
+  category: string;
   deleteProduct: any;
 }
 
