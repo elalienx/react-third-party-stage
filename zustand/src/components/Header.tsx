@@ -11,7 +11,7 @@ export default function Header() {
   const { user, login, logout } = useShoeStore();
 
   // Derived state
-  const myUser = { id: 1, email: "cory@example.com" };
+  const defaultUser = { id: 1, email: "cory@example.com" };
   const itemsInCart = cart.reduce((prev, acc) => {
     return prev + acc.quantity;
   }, 0);
@@ -31,14 +31,17 @@ export default function Header() {
           <li>
             <NavLink to="/cart">Cart ({itemsInCart})</NavLink>
           </li>
+          {/* Allow user to login */}
+          {!user && (
+            <li>
+              <button onClick={() => login(defaultUser)}>Log in</button>
+            </li>
+          )}
+
+          {/* Allow user to manage account */}
           {user && (
             <li>
               <NavLink to="/account">Account</NavLink>
-            </li>
-          )}
-          {!user && (
-            <li>
-              <button onClick={() => login(myUser)}>Log in</button>
             </li>
           )}
           {user && (
