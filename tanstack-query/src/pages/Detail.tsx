@@ -12,7 +12,7 @@ import PageNotFound from "./PageNotFound";
 
 export default function Detail() {
   // Global state
-  const { setCart } = useCart();
+  const { cart, setCart } = useCart();
   const { id } = useParams();
   const { data, isLoading, error } = useQuery({
     queryKey: ["products", id],
@@ -35,6 +35,26 @@ export default function Detail() {
     if (!data.ok) throw new Error(`Product not found: ${data.status}`);
 
     return data.json();
+  }
+
+  function onAddToCart() {
+    // Safeguard
+    if (!sku || !id) return alert("Select size.");
+
+    setCart(getUpdatedCart(id));
+    toast("Added to cart", { icon: "🛒" });
+  }
+
+  function getUpdatedCart(id: string) {
+    const itemInCart = cart.find((i) => i.sku === sku);
+    const appendedCart = [...cart, { id: parseInt(id), sku, quantity: 1 }];
+    const incrementedCart = cart.map((item) => {
+      const editedItem = { ...item, quantity: item.quantity + 1 };
+
+      return item.sku === sku ? editedItem : item;
+    });
+
+    return itemInCart ? incrementedCart : appendedCart;
   }
 
   // Safeguards
@@ -61,20 +81,7 @@ export default function Detail() {
         <button
           disabled={!sku}
           className="btn btn-primary"
-          onClick={() => {
-            if (!sku) return alert("Select size.");
-            setCart((cart) => {
-              const itemInCart = cart.find((i) => i.sku === sku);
-              return itemInCart
-                ? cart.map((item) =>
-                    item.sku === sku
-                      ? { ...item, quantity: item.quantity + 1 }
-                      : item,
-                  )
-                : [...cart, { id: parseInt(id), sku, quantity: 1 }];
-            });
-            toast("Added to cart", { icon: "🛒" });
-          }}
+          onClick={onAddToCart}
         >
           Add to cart
         </button>
