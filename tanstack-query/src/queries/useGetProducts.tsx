@@ -1,12 +1,12 @@
 // Node modules
-import { useQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { Product } from "../types/types";
 
 export default function useGetProducts() {
   const queryKey = ["products"];
   const queryFn = getProducts;
 
-  return useQuery({ queryKey, queryFn });
+  return useSuspenseQuery({ queryKey, queryFn });
 }
 
 async function getProducts(): Promise<Product[]> {

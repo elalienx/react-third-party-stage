@@ -2,7 +2,7 @@ import { ErrorBoundary } from "react-error-boundary";
 import Header from "./components/Header";
 import { Outlet } from "react-router-dom";
 
-export function Layout() {
+export default function Layout() {
   return (
     <div className="content">
       <Header />

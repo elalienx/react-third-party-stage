@@ -1,17 +1,20 @@
-import "./styles/App.css";
-import Products from "./pages/Products.tsx";
+// Node modules
 import {
   Route,
   createBrowserRouter,
   createRoutesFromElements,
   RouterProvider,
 } from "react-router-dom";
-import Detail from "./pages/Detail.tsx";
+
+// Project files
+import Account from "./pages/Account.tsx";
 import Cart from "./pages/Cart.tsx";
 import Checkout from "./pages/Checkout.tsx";
-import Faker from "./Faker.tsx";
-import { Layout } from "./Layout.tsx";
-import { Account } from "./pages/Account.tsx";
+import Detail from "./pages/Detail.tsx";
+import Faker from "./pages/Faker.tsx";
+import Products from "./pages/Products.tsx";
+import Layout from "./Layout.tsx";
+import "./styles/App.css";
 
 export default function App() {
   const errPro = <h1>Sorry, failed to load products.</h1>;

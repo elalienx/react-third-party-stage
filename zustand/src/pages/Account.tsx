@@ -1,7 +1,7 @@
 // Project files
 import useShoeStore from "../state/shoeStore";
 
-export function Account() {
+export default function Account() {
   const user = useShoeStore((state) => state.user); // complex syntax but performant
   // const { user } = useShoeStore(); // simplete syntax
 

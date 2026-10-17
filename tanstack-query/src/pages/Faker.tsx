@@ -2,7 +2,7 @@
 import { faker } from "@faker-js/faker";
 
 // Project files
-import { Product } from "./types/types";
+import { Product } from "../types/types";
 
 export default function Faker() {
   function generateFakeData() {
