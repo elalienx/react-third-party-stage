@@ -14,7 +14,7 @@ import Checkout from "./pages/Checkout.tsx";
 import Account from "./pages/Account.tsx";
 import Faker from "./Faker.tsx";
 import Layout from "./Layout.tsx";
-import "./App.css";
+import "./styles/App.css";
 
 export default function App() {
   const errPro = <h1>Sorry, failed to load products.</h1>;

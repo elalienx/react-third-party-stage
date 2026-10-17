@@ -8,7 +8,7 @@ import { Toaster } from "react-hot-toast";
 import { CartProvider } from "./context/cartContext";
 import { UserProvider } from "./context/userContext";
 import Routes from "./Routes";
-import "./main.css";
+import "./styles/main.css";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
